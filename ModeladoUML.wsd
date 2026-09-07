@@ -1,0 +1,41 @@
+@startuml ModeladoUML
+skinparam classAttributeIconSize 0
+
+title Diagrama de Clases - Taxis Huaytará
+
+' Asociación
+class Pasajero {
+  - nombre: String
+  + solicitarViaje(v: Viaje): void
+}
+class Viaje {
+  - destino: String
+  - tarifa: double
+}
+Pasajero --> Viaje : Asociación (Solicita) >
+
+' Agregación y  Reflexividad
+class Empresa {
+  - nombre: String
+  - conductores: List<Conductor>
+  + agregarConductor(c: Conductor): void
+}
+class Conductor {
+  - nombre: String
+  - coordinador: Conductor
+  + asignarCoordinador(c: Conductor): void
+}
+Empresa o-- Conductor : Agregación >
+Conductor --> Conductor : Reflexividad (Coordina a) >
+
+' Composición
+class Taxi {
+  - placa: String
+  - motor: Motor
+}
+class Motor {
+  - serie: String
+}
+Taxi *-- Motor : Composición >
+
+@enduml
